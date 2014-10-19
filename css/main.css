@@ -1,10 +1,3 @@
-* {
-	border:none;
-	margin:0px;
-	padding:none;
-	outline: none;
-}
-
 body {
 	overflow: hidden;
 	border: none;
@@ -13,55 +6,4 @@ body {
 	background-color:#f3f3f3;
 }
 
-.app-container {
-	width: 500px;
-}
-
-.grid-tile {
-	display: block;
-	width: 100%;
-	height: 100%;
-	opacity: 0;
-}
-
-.red {
-	background-color:#ff6666;
-}
-
-.blue {
-	background-color:#66ccff;
-}
-
-.green {
-	background-color:#ccff66;
-}
-
-.yellow {
-	background-color:#ffff66;
-}
-
-.pink {
-	background-color:#ff6fcf;
-}
-
-.violet {
-	background-color:#cc66ff;
-}
-
-.orange {
-	background-color:#ffcc66;
-}
-
-.black {
-	background-color:#333333;
-}
-
-.eg-wrapper {
-	float: left;
-}
-
-.eg-wrapper:hover {
-	opacity: 0.5;
-}
-
- 
+ canvas { width: 100%; height: 100% }
