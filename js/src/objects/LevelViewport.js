@@ -1,7 +1,9 @@
 define(function (require){
 	
 	var BaseObject = require('BaseObject'),
-		THREE = require('three');
+		THREE = require('three'),
+		utils = require('utils'),
+		input = require('input');
 
 	return BaseObject.extend({
 
@@ -11,7 +13,15 @@ define(function (require){
 		model: null,
 
 		// functions
-		
+		init: function () {
+			this.__init();
+			input.on("input", this.handleInput);
+        },
+        handleInput: function (event) {
+            if (event.type == "key") {
+                var key = utils.getKeyCode(event.code);
+            }
+        },
 		addToScreen: function () {
 			document.body.appendChild( this.renderer.domElement );
 		},
@@ -40,9 +50,7 @@ define(function (require){
 		},
 		update: function (dt) {
 			this.__update(dt);
-			if(this.model !== null) {
-				this.renderer.render(this.model.scene, this.model.camera);
-			}
+			this.model && this.renderer.render(this.model.scene, this.model.camera);
 		},
 		dispose: function() {
 			this.__dispose();
