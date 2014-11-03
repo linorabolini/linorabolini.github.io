@@ -3,6 +3,7 @@ define(function (require) {
     var BaseObject = require('BaseObject'),
         LevelModel = require('LevelModel'),
         LevelViewport = require('LevelViewport'),
+        KeyboardController = require('keyboard'),
         input = require('input');
 
     return BaseObject.extend({
