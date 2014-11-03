@@ -21,6 +21,8 @@ define(function (require) {
         setup: function () {
             server.setup();
             this.loadDataFiles();
+
+            input.addSource(new KeyboardController());
         },
         loadDataFiles: function () {
             var NUM_LEVELS = 2,
