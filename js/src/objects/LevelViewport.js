@@ -1,60 +1,50 @@
-define(function (require){
-	
-	var BaseObject = require('BaseObject'),
-		THREE = require('three'),
-		utils = require('utils'),
-		input = require('input');
+define(function (require) {
 
-	return BaseObject.extend({
+    var BaseObject = require('BaseObject'),
+        THREE = require('three'),
+        utils = require('utils'),
+        input = require('input');
 
-		// variables
+    return BaseObject.extend({
 
-		renderer: null,
-		model: null,
+        // variables
 
-		// functions
-		init: function () {
-			this.__init();
-			input.on("input", this.handleInput);
+        renderer: null,
+
+        // functions
+        addToScreen: function () {
+            document.body.appendChild( this.renderer.domElement );
         },
-        handleInput: function (event) {
-            if (event.type == "key") {
-                var key = utils.getKeyCode(event.code);
-            }
+        removeFromScreen: function () {
+            document.body.removeChild( this.renderer.domElement );
         },
-		addToScreen: function () {
-			document.body.appendChild( this.renderer.domElement );
-		},
-		removeFromScreen: function () {
-			document.body.removeChild( this.renderer.domElement );
-		},
-		startRendering: function (levelModel) {
-			var scope = this;
+        startRendering: function () {
+            var scope = this;
 
-			// setup renderer
-			if (window.WebGLRenderingContext)
-				this.renderer = new THREE.WebGLRenderer();
-			else
-				this.renderer = new THREE.CanvasRenderer();
+            // setup renderer
+            if (window.WebGLRenderingContext)
+                this.renderer = new THREE.WebGLRenderer();
+            else
+                this.renderer = new THREE.CanvasRenderer();
 
-			this.renderer.shadowMapEnabled = true;
-			this.renderer.shadowMapType = THREE.PCFShadowMap;
+            this.renderer.shadowMapEnabled = true;
+            this.renderer.shadowMapType = THREE.PCFShadowMap;
 
-			this.renderer.setClearColor(0x00688B, 1);
-			this.renderer.setSize( window.innerWidth, window.innerHeight );
-			window.onresize = function() {
-				scope.renderer.setSize( window.innerWidth, window.innerHeight );
-			};
+            this.renderer.setClearColor(0x00688B, 1);
+            this.renderer.setSize( window.innerWidth, window.innerHeight );
+            window.onresize = function() {
+                scope.renderer.setSize( window.innerWidth, window.innerHeight );
+            };
 
-			this.model = levelModel; // set the level to render
-		},
-		update: function (dt) {
-			this.__update(dt);
-			this.model && this.renderer.render(this.model.scene, this.model.camera);
-		},
-		dispose: function() {
-			this.__dispose();
-			this.removeFromScreen();
-		}
-	});
+        },
+        render: function (model) {
+            var canRender = !!model && !!model.scene && !!model.camera;
+            if (canRender)
+                this.renderer.render(model.scene, model.camera);
+        },
+        dispose: function() {
+            this.__dispose();
+            this.removeFromScreen();
+        }
+    });
 });

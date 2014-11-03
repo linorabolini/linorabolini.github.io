@@ -1,3 +1,4 @@
+'use strict';
 
 var Module = { TOTAL_MEMORY: 256*1024*1024 };
 
@@ -18,32 +19,25 @@ var bodies = [];
 var vehicles = [];
 var bodiesMap = {};
 
-var keys = [];
+var controls = [];
 
 var ENGINE_FORCE = 150;
 var STEERING = 0.4;
 var BRAKE = 2;
 
-var FPS = 45;
+var FPS = 50;
 
-function Keys() {
-  return {
-    "up":false,
-    "down": false,
-    "left": false,
-    "right":false,
-    "space":false
-  }
+function Controls() {
+    return {
+        "up": false,
+        "down": false,
+        "left": false,
+        "right": false,
+        "space": false
+    };
 }
 
 function startUp(data) {
-  // create the initial static level
-  if(data && data.staticBodies) {
-    for (var i = 0; i < data.staticBodies.length; i++) {
-      addObject(data.staticBodies[i]);
-    };
-  }
-
   // loop
   var last = Date.now();
   function mainLoop() {
@@ -54,44 +48,91 @@ function startUp(data) {
   setInterval(mainLoop, 1000/FPS);
 }
 
-function addObject(object, offset) {
+function readVec3(data, offset) {
+    var o = offset[0];
+    offset[0] = o + 3;
+    return new Ammo.btVector3(data[o], data[o + 1], data[o + 2]);
+}
+
+function readQuaternion(data, offset) {
+    var o = offset[0];
+    offset[0] = o + 4;
+    return new Ammo.btQuaternion(data[o], data[o + 1], data[o + 2], data[o + 3]);
+}
+
+function readSlot(data, offset) {
+    var o = offset[0];
+    offset[0] = o + 1;
+    return data[o];
+}
+
+function readGeometry(data, offset) {
+  var type = readSlot(data, offset);
+  return geometryReader[type](data, offset);
+}
+
+function readShape(data, offset) {
+  var type = readSlot(data, offset);
+  return shapeReader[type](data, offset);
+}
+
+var geometryReader = {
+  BoxGeometry: function (data, offset) {
+      return new Ammo.btBoxShape(readVec3(data, offset));
+  },
+
+  SphereGeometry: function (data, offset) {
+      return new Ammo.btSphereShape(readSlot(data, offset));
+  }
+};
+
+var shapeReader = {
+  Mesh: function (data, offset) {
+      return readGeometry(data, offset);
+  },
+
+  Group: function (data, offset) {
+      return new Ammo.btCompoundShape();
+  },
+  Object3D: function (data, offset) {
+      return this.Group(data, offset);
+  }
+};
+
+function addObject(data, parent) {
+
+  var offset = [0];
 
   // default transform
-  var startTransform = new Ammo.btTransform();
-  startTransform.setIdentity();
+  var t = new Ammo.btTransform();
 
-  // POSITION
-  startTransform.setOrigin(new Ammo.btVector3(object[0], object[1], object[2]));
+  t.setIdentity();
+  t.setOrigin(readVec3(data, offset));
+  t.setRotation(readQuaternion(data, offset));
 
-  // ROTATION
-  startTransform.setRotation(new Ammo.btQuaternion(object[3], object[4], object[5], object[6]));
+  // SHAP
+  var shape = readShape(data, offset);
+  var children = readSlot(data, offset);
+
+  for (var i = 0; i < children.length; i++) {
+    var child = children[i];
+    addObject(child, shape);
+  };
 
   // MASS
-  var mass = object[10]; // default
-
-  // SIZE
-  var half = 0.5;
-  var shape = new Ammo.btBoxShape(new Ammo.btVector3(object[7] * half, object[8] * half, object[9] * half));
-
-  if(offset !== undefined) {
-      var oldshape = shape;
-
-      shape = new Ammo.btCompoundShape();
-
-      var tr = new Ammo.btTransform();
-      tr.setIdentity();
-      tr.setOrigin(new Ammo.btVector3(offset[0], offset[1], offset[2]));
-
-      // localTrans effectively shifts the center of mass with respect to the chassis
-      shape.addChildShape(tr, oldshape);
-  }
+  var mass = data[offset[0]]; // default
 
   // calculate local inertia
   var localInertia = new Ammo.btVector3(0, 0, 0);
   shape.calculateLocalInertia(mass, localInertia);
 
+  if(parent) {
+    parent.addChildShape(t, shape);
+    return;
+  }
+
   // motion state
-  var myMotionState = new Ammo.btDefaultMotionState(startTransform);
+  var myMotionState = new Ammo.btDefaultMotionState(t);
   var rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, myMotionState, shape, localInertia);
   var body = new Ammo.btRigidBody(rbInfo);
 
@@ -154,10 +195,9 @@ function createVehicle( data ) {
 
   dynamicsWorld.addVehicle(vehicle);
   vehicles.push(vehicle);
-  keys.push(new Keys());
+  controls.push(new Controls());
 
   return vehicle;
-
 }
 
 function applyEngineForce( force, vehicleId, wheelId ) {
@@ -259,38 +299,46 @@ function readBulletObject( i, data, offset ) {
 
 }
 
-function setVehicleKey (id, code, status) {
-  if ( keys[id][code] !== undefined )
-    keys[id][code] = status;
+function setVehicleControl (id, code, status) {
+  if ( controls[id][code] !== undefined )
+    controls[id][code] = status;
 }
 
-function getVehicleKey (id, code) {
-  return keys[id][code];
+function getVehicleControl (id, code) {
+  return controls[id][code];
 }
 
 function handleInput (input) {
-  setVehicleKey(input.id, input.code, input.value);
+  if (input.type === 'key'){
+    setVehicleControl(input.id, input.code, input.value);
+  } else if(input.type === 'accelerometer') {
+    var x = input.y, y = input.x;
+    setVehicleControl(input.id, "up", y < 0 ? y:0);
+    setVehicleControl(input.id, "down", y > 0 ? -y:0);
+    setVehicleControl(input.id, "right", x < 0 ? -x:0);
+    setVehicleControl(input.id, "left", x > 0 ? x:0);
+  }
 }
 
 function updateVehicles () {
 
   for (var i = 0, il = vehicles.length; i < il ; i++) {
 
-    var up = getVehicleKey(i, "up");
-    var down = getVehicleKey(i, "down");
-    var value = (!!up - !!down);
+    var up = getVehicleControl(i, "up");
+    var down = getVehicleControl(i, "down");
+    var value = (up - down);
 
     applyEngineForce(value * ENGINE_FORCE, i, 2);
     applyEngineForce(value * ENGINE_FORCE, i, 3);
 
-    var left = getVehicleKey(i, "left");
-    var right = getVehicleKey(i, "right");
-    var value = (!!left - !!right);
+    var left = getVehicleControl(i, "left");
+    var right = getVehicleControl(i, "right");
+    var value = (left - right);
 
     setSteering(value * STEERING, i, 0);
     setSteering(value * STEERING, i, 1);
 
-    var space = getVehicleKey(i, "space");
+    var space = getVehicleControl(i, "space");
 
     setBrake(BRAKE * !!space, i, 2);    
     setBrake(BRAKE * !!space, i, 3);    
@@ -348,9 +396,6 @@ onmessage = function(event) {
     case INPUT:
       handleInput(data);
       break;
-    case START:
-      startUp(data);
-      break;
     case CREATE_CAR:
       if(data.id >= vehicles.length - 1)
         createVehicle(data);
@@ -365,3 +410,5 @@ onmessage = function(event) {
         postMessage("message arrived");
   }
 }
+
+startUp();
