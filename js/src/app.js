@@ -22,6 +22,7 @@ define(function (require) {
             server.setup();
             this.loadDataFiles();
 
+            // add keyboard source
             input.addSource(new KeyboardController());
         },
         loadDataFiles: function () {
