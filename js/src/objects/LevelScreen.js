@@ -48,10 +48,6 @@ define(function (require) {
                 case 65: // A
                     this.level.rotateCamera("x", event.value);
                     break;
-                case 67:
-                    // add keyboard source
-                    input.addSource(new KeyboardController());
-                    break;
                 }
             }
 
