@@ -23,9 +23,7 @@ define(function (require) {
             this.loadDataFiles();
 
             // add keyboard source
-            for (var i = 0; i < 300; i++) {
-                input.addSource(new KeyboardController());
-            };
+            input.addSource(new KeyboardController());
         },
         loadDataFiles: function () {
             var NUM_LEVELS = 2,
