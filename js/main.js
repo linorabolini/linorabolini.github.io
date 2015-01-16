@@ -10,26 +10,36 @@ require.config({
         'fishbone'      : 'libs/fishbone',
         'three'         : 'libs/three.min',
 
-    //src
+    //engine
         // objects
-        'BaseObject'    : 'src/objects/BaseObject',
-        'LevelModel'    : 'src/objects/LevelModel',
-        'LevelScreen'   : 'src/objects/LevelScreen',
-        'LevelViewport' : 'src/objects/LevelViewport',
+        'BaseObject'    : 'engine/objects/BaseObject',
+        'LevelModel'    : 'engine/objects/LevelModel',
+        'LevelScreen'   : 'engine/objects/LevelScreen',
+        'LevelViewport' : 'engine/objects/LevelViewport',
+        'cameraHelper'  : 'engine/objects/cameraHelper',
+
+            // vehicles
+            'vehicle'                : 'engine/objects/vehicles/vehicle',
+            'vehicleStats'           : 'engine/objects/vehicles/vehicleStats',
+            'vehicleParts'           : 'engine/objects/vehicles/vehicleParts',
+            'vehicleStatus'          : 'engine/objects/vehicles/vehicleStatus',
+            'vehicleController'      : 'engine/objects/vehicles/vehicleController',
+            'vehicleSerializer'      : 'engine/objects/vehicles/vehicleSerializer',
 
         // inputs
-        'keyboard'      : 'src/inputs/keyboard',
-        'mobile'        : 'src/inputs/mobile',
+        'keyboard'      : 'engine/inputs/keyboard',
+        'mobile'        : 'engine/inputs/mobile',
+
 
 // upper level
-        'debug'         : 'src/debug',
-        'server'        : 'src/server',
-        'serializer'    : 'src/serializer',
-        'physics'       : 'src/physics',
-        'input'         : 'src/input',
-        'utils'         : 'src/utils',
-        'app'           : 'src/app',
-        'files'         : 'src/files'
+        'debug'         : 'engine/debug',
+        'server'        : 'engine/server',
+        'serializer'    : 'engine/serializer',
+        'physics'       : 'engine/physics',
+        'input'         : 'engine/input',
+        'utils'         : 'engine/utils',
+        'app'           : 'engine/app',
+        'files'         : 'engine/files'
     }
 });
 
@@ -45,7 +55,19 @@ define('config', [], function() {
     return {
         server: {
             name: 'server',
-            host: 'http://localhost:3000'
+            host: 'http://localhost:3000',
+            options: {
+                'reconnection': false,
+            }
+        },
+        worker: {
+            path: './js/engine/workers/ammo.js'
+        },
+        level: {
+            scale: 80,
+            camera: {
+                perspective: false
+            }
         },
         debug: true
     }
