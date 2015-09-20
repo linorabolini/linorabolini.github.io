@@ -46,15 +46,10 @@ body {
     position: relative;
 }
 
-.main {
-    margin-top: 500px;
-    position: relative;
-}
-
 .c-content {
     background: #f1f1f1;
     margin: 0 auto;
-    padding: 10px 0;
+    padding: 10px 10px;
 }
 
 .cell {
@@ -178,6 +173,11 @@ body {
 }
 .post-row.padding-20-0 {
     padding: 20px 0;
+}
+
+.navbar {
+    background-color: #CBD6FF;
+    padding: 10px;
 }
 
 @media all and (max-width: 768px) {
