@@ -1,0 +1,21 @@
+#celebrity-query-form {
+    font-size: 16px;
+}
+
+#celebrity-query-form__height {
+    border: none;
+    height: 20px;
+    padding: 10px;
+    font-size: inherit;
+    border-radius: 10px 10px 0 10px;
+}
+
+#celebrity-query-form__submit {
+    border: none;
+    background-color: #FF36AD;
+    color: white;
+    height: 40px;
+    vertical-align: top;
+    border-radius: 10px 10px 10px 0;
+    font-size: inherit;
+}
