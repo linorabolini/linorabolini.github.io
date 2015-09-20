@@ -17,7 +17,7 @@
 <body>
     <div class="main front">
         <div class="navbar post-row">
-            <form id="celebrity-query-form" class="cell-container max-800">
+            <form id="celebrity-query-form" class="cell-container max-600">
                 <input type="text" id="celebrity-query-form__height"></input>
                 <button type="submit" id="celebrity-query-form__submit">Check!</button>
             </form>
@@ -42,11 +42,11 @@
             var celebrityNodes = this.props.data.map(function (celebrity) {
                 return (
                     <div className="post-row">
-                        <div className="cell-container max-800">
+                        <div className="cell-container max-600">
                             <div className="celebrity-name">{celebrity.name}</div>
                             <div className="celebrity-height">{celebrity['/people/person/height_meters']}</div>
                         </div>
-                        <div className="cell-container max-800">
+                        <div className="cell-container max-600">
                             <CelebrityImage data={celebrity['/common/topic/image']} />
                         </div>
                     </div>

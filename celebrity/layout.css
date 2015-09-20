@@ -146,6 +146,11 @@ body {
     margin: auto;
 }
 
+.max-600 {
+    max-width: 600px;
+    margin: auto;
+}
+
 .post-row {
     padding: 20px 0;
 }
