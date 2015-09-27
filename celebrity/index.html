@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-url/2.0.2/url.js"></script>
@@ -10,19 +11,20 @@
     <link rel="stylesheet" type="text/css" href="./font-awesome-4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="./layout.css">
     <link rel="stylesheet" type="text/css" href="./celebrity-query-form.css">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.css"/>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.5.7/slick.css"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react-slick/0.7.2/react-slick.js"></script>
     <title>Celebrities</title>
 </head>
 <body>
     <div class="main front">
-        <div class="navbar post-row">
+        <div class="navbar">
             <form id="celebrity-query-form" class="cell-container max-600">
                 <input type="text" id="celebrity-query-form__height"></input>
                 <button type="submit" id="celebrity-query-form__submit">Check!</button>
             </form>
         </div>
         <div id="content"></div>
+    </div>
 </body>
 </html>
 
@@ -52,10 +54,18 @@
                     </div>
                 );
             });
+
+            var settings = {
+              dots: true,
+              infinite: true,
+              speed: 500,
+              slidesToShow: 1,
+              slidesToScroll: 1
+            };
             return (
-                <div>
-                    {celebrityNodes}
-                </div>
+                <Slider {...settings}>
+                  {celebrityNodes}
+                </Slider>
             );
         }
     });
@@ -72,7 +82,7 @@
                     backgroundSize: "cover"
                 };
                 return (
-                    <div className="cell cell-33">
+                    <div className="cell cell-25">
                         <div className="post small" style={divStyle}></div>
                     </div>
                 );
@@ -93,14 +103,14 @@
         var service_url = 'https://www.googleapis.com/freebase/v1/mqlread';
 
         var query = [{
-            'limit': parseInt(url('?limit') || "100"),
+            'limit': parseInt(url('?limit') || "10"),
             'id': null,
             'name': null,
             'type': '/celebrities/celebrity',
             '/people/person/height_meters': parseFloat(params.height || url('?height') || "1.69"),
             '/common/topic/image': [{
                 'id': null,
-                'limit': parseInt(url('?imgLimit') || "3")
+                'limit': parseInt(url('?imgLimit') || "4")
             }]
         }];
 

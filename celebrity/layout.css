@@ -47,9 +47,12 @@ body {
 }
 
 .c-content {
-    background: #f1f1f1;
     margin: 0 auto;
     padding: 10px 10px;
+}
+
+.main {
+    background: #f1f1f1;
 }
 
 .cell {
@@ -181,7 +184,6 @@ body {
 }
 
 .navbar {
-    background-color: #CBD6FF;
     padding: 10px;
 }
 

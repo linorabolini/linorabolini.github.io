@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solar System</title>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+    <style>
+        body {
+           /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,7db9e8+100 */
+           background: #1e5799; /* Old browsers */
+        }
+        .planet {
+            border-radius: 100%;
+            width: 50%;
+            height: 50%;
+            background: #28ABFF;
+            position: absolute;
+        }
+
+        .trail {
+            width: 6px;
+            height: 6px;
+            background: rgba(255,255,255, 0.3);
+            display: block;
+            position: absolute;
+            border-radius: 100%;
+            transform: translate(-50%, -50%);
+        }
+
+        .sun {
+            width: 40px;
+            height: 40px;
+            background: #FFD423;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        .moon {
+            background-color: white;
+        }
+
+        .mars {
+            background-color: red;
+        }
+    </style>
+    <div class="solar-system">
+        <div class="planet sun">
+            <div class="planet">                
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+            </div>
+            <div class="planet mars">            
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+            </div>
+            <div class="planet">                
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="planet moon"></div>
+            </div>            <div class="planet">                
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+            </div>            <div class="planet">                
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+            </div>            <div class="planet">                
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+            </div>            <div class="planet">                
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+                <div class="trail"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="mini-ss.js"></script>
+    <script>
+        var solarSystem = new System($('.solar-system'));
+        solarSystem.start();
+    </script>
+
+</body>
+</html>
