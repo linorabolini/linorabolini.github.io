@@ -1,3 +1,8 @@
+.solar-system {
+    width: 300px;
+    height: 300px;
+}
+
 .solar-system .planet {
     position: absolute;
 }

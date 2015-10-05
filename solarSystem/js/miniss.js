@@ -13,7 +13,7 @@
     }
 
     function System( $el, options ) {
-        this.$el = $root = $el;
+        this.$el = $el;
         this.planets = [];
         this.isRunning = true;
 
@@ -30,7 +30,7 @@
         var self = this;
 
         self.$el.children('.planet').each(function () {
-            self.addPlanet(this);
+            self.addRootPlanet(this);
         });
 
         self.startLoop();
@@ -75,7 +75,8 @@
         });
     }
 
-    System.prototype.addPlanet = function (el) {
+    System.prototype.addRootPlanet = function (el) {
+        $root = $(el);
         this.planets.push(new Planet(el, null,{
             speed: 0
         }));
@@ -111,7 +112,7 @@
         this.trails = this.$el.children('.trail').map(function (i, trailEl) { 
             var $trail = $(trailEl);
             $trail.hide();
-            self.$el.parent().prepend($trail);
+            $root.prepend($trail);
             return $trail;
         });
 
@@ -137,7 +138,7 @@
 
             if (this.enableTrails) {
                 this.lastTrailDistance += Math.abs(this.yy - this.y) + Math.abs(this.xx - this.x);
-                this.showNextTrail();
+                this.showNextTrail(this);
              }
         }
 
@@ -160,8 +161,8 @@
         while(this.lastTrailDistance > this.distanceToNextTrail) {
             this.lastTrailDistance -= this.distanceToNextTrail;
 
-            var top = this.$el.offset().top;
-            var left = this.$el.offset().left;
+            var top = this.y;
+            var left = this.x;
 
             this.currentTrail = (++this.currentTrail) % this.maxTrails;
             var $trail = this.trails[this.currentTrail];
