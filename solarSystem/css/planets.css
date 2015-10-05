@@ -1,0 +1,65 @@
+.solar-system {
+    width: 300px;
+    height: 300px;
+}
+
+.solar-system .planet {
+    position: absolute;
+}
+
+.trail {
+    width: 6px;
+    height: 6px;
+    background: rgba(255,255,255, 0.3);
+    display: block;
+    position: absolute;
+    border-radius: 100%;
+    transform: translate(-50%, -50%);
+}
+
+.normal {
+    width: 20px;
+    height: 20px;
+}
+
+.big {
+    width: 40px;
+    height: 40px;
+}
+
+.static {
+    position: static !important;
+}
+
+.planet {
+    position: relative;
+}
+
+.centered {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.yellow {
+    background: #FFD423;
+}
+
+.round {
+    border-radius: 100%;
+}
+
+.blue {
+    background: #28ABFF;
+}
+
+.white {
+    background-color: white;
+}
+
+.red {
+    background-color: red;
+}

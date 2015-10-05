@@ -1,0 +1,41 @@
+body {
+   background: #1e5799;
+}
+
+.draggable:hover {
+    cursor: move;
+    cursor: -webkit-grab;
+    cursor:         grab;
+}
+
+.draggable:active {
+    cursor: -webkit-grabbing;
+    cursor:         grabbing;
+}
+
+.is-dragging {
+    background: #df7a80;
+}
+
+.is-active {
+    z-index: 100;
+}
+
+.is-dropped {
+    opacity: 0;
+    -webkit-transform: scale3d(.7,.7,1) !important;
+            transform: scale3d(.7,.7,1) !important;
+}
+
+.is-complete {
+    opacity: 1;
+    -webkit-transition: opacity .3s, -webkit-transform .3s !important;
+            transition: opacity .3s, transform .3s !important;
+    -webkit-transform: scale3d(1,1,1) !important;
+            transform: scale3d(1,1,1) !important;
+}
+
+.animate {
+    -webkit-transition: all .3s ease-out;
+            transition: all .3s ease-out;
+}

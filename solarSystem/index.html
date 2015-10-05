@@ -6,107 +6,76 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Solar System</title>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="css/planets.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="js/modernizr.custom.js"></script>
 </head>
 <body>
     <style>
-        body {
-           /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,7db9e8+100 */
-           background: #1e5799; /* Old browsers */
-        }
-        .planet {
-            border-radius: 100%;
-            width: 50%;
-            height: 50%;
-            background: #28ABFF;
-            position: absolute;
-        }
 
-        .trail {
-            width: 6px;
-            height: 6px;
-            background: rgba(255,255,255, 0.3);
-            display: block;
-            position: absolute;
-            border-radius: 100%;
-            transform: translate(-50%, -50%);
-        }
-
-        .sun {
-            width: 40px;
-            height: 40px;
-            background: #FFD423;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin: auto;
-        }
-
-        .moon {
-            background-color: white;
-        }
-
-        .mars {
-            background-color: red;
-        }
     </style>
-    <div class="solar-system">
-        <div class="planet sun">
-            <div class="planet">                
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-            </div>
-            <div class="planet mars">            
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-            </div>
-            <div class="planet">                
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="planet moon"></div>
-            </div>            <div class="planet">                
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-            </div>            <div class="planet">                
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-            </div>            <div class="planet">                
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-            </div>            <div class="planet">                
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-            </div>
+    <div class="solar-system centered">
+        <div class="planet sun big round yellow centered">
+            <div class="planet blue normal round drop-area"></div>
+            <div class="planet blue normal round drop-area"></div>
+            <div class="planet blue normal round drop-area"></div>
         </div>
     </div>
-
-    <script src="mini-ss.js"></script>
+    <div id="drag-area">
+        <div class="planet red normal round draggable"><i class="centered fa fa-pinterest"></i></div>
+        <div class="planet red normal round draggable"></div>
+        <div class="planet red normal round draggable"></div>
+        <div class="planet red normal round draggable"></div>
+    </div>
+    <script src="js/miniss.js"></script>
+    <script src="js/draggabilly.pkgd.min.js"></script>
+    <script src="js/dragdrop.js"></script>
     <script>
-        var solarSystem = new System($('.solar-system'));
-        solarSystem.start();
-    </script>
+        (function() {
 
+
+            solarSystemContainer = $('.solar-system');
+
+            var solarSystem = new System(solarSystemContainer);
+            solarSystem.start();
+
+            var body = document.body,
+                dragArea = $('#drag-area'),
+                droppableArr = [];
+
+            // initialize droppables
+            $('.drop-area').each( function(i, el) {
+                droppableArr.push( new Droppable( el, {
+                    onDrop:function( instance, draggableEl ) {
+                        // show checkmark inside the droppabe element
+                        $(instance.el).append(draggableEl);
+                        solarSystem.resume();
+                    }
+                }));
+            });
+
+            // initialize draggable(s)
+            $('.draggable').each( function(i, el) {
+                new Draggable( el, droppableArr, {
+                    onStart:function() {
+                        solarSystem.pause();
+                        // add class 'drag-active' to body
+                        classie.add( body, 'drag-active' );
+                    },
+                    onEnd:function( instance, wasDropped ) {
+                        classie.remove( body, 'drag-active' );
+                        if(!wasDropped) {
+                            solarSystem.resume();
+                            dragArea.append(el);
+                        }
+                        instance.moveBack( false );
+                    }
+                });
+            });
+        })();
+    </script>
 </body>
 </html>
