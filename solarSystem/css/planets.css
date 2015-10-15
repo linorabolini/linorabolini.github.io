@@ -17,6 +17,11 @@
     transform: translate(-50%, -50%);
 }
 
+.small {
+    width: 10px;
+    height: 10px;
+}
+
 .normal {
     width: 20px;
     height: 20px;
