@@ -9,89 +9,159 @@
     <link rel="stylesheet" type="text/css" href="css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="css/layout.css" />
     <link rel="stylesheet" type="text/css" href="css/planets.css" />
+    <link rel="stylesheet" type="text/css" href="css/social-icons.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="js/modernizr.custom.js"></script>
 </head>
 <body>
-    <style>
-
-    </style>
-    <div class="solar-system centered">
-        <div class="planet sun big round yellow centered">
-            <div class="planet blue normal round drop-area">
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-            </div>
-            <div class="planet blue normal round drop-area">
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-            </div>
-            <div class="planet blue normal round drop-area">
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="trail"></div>
-                <div class="planet blue small round drop-area">
+        <div class="splash">
+            <div class="solar-system centered">
+                <div class="planet sun big round yellow centered">
+                    <div class="planet blue normal round drop-area" data-distance="70" data-speed="1">
+                        <div class="trail"></div>
+                        <div class="trail"></div>
+                        <div class="trail"></div>
+                        <div class="trail"></div>
+                    </div>
+                    <div class="planet blue normal round drop-area" data-distance="110" data-speed="0.5">
+                        <div class="trail"></div>
+                        <div class="trail"></div>
+                        <div class="trail"></div>
+                        <div class="trail"></div>
+                        <div class="trail"></div>
+                    </div>
+                    <div class="planet blue normal round drop-area" data-distance="150" data-speed="0.2">
+                        <div class="trail"></div>
+                        <div class="trail"></div>
+                        <div class="trail"></div>
+                        <div class="trail"></div>
+                        <div class="trail"></div>
+                        <div class="trail"></div>
+                        <div class="trail"></div>
+                    </div>
                 </div>
-                <div class="planet blue small round drop-area">
+            </div>
+            <div id="drag-area">
+                <div class="draggable social-icon social-icon--facebook" target="_blank" href="https://facebook.com"></div>
+                <div class="draggable social-icon social-icon--twitter" target="_blank" href="https://twitter.com"></div>
+                <div class="draggable social-icon social-icon--youtube" target="_blank" href="https://youtube.com"></div>
+                <div class="draggable social-icon social-icon--instagram" target="_blank" href="https://instagram.com"></div>
+                <div class="draggable social-icon social-icon--linkedin" target="_blank" href="https://linkedin.com"></div>
+                <div class="draggable social-icon social-icon--tumblr" target="_blank" href="https://tumblr.com"></div>
+                <div class="draggable social-icon social-icon--email" target="_blank" href="#"></div>
+                <div class="draggable social-icon social-icon--snapchat" target="_blank" href="#"></div>
+            </div>
+        </div>
+        <div class="main front">
+            <div class="content">
+                <div class="post-row">
+                    <div class="cell-container max-800">
+                        <div class="cell-75 cell">
+                            <div class="post tall"></div>
+                        </div>
+                        <div class="cell-25 cell">
+                            <div class="post tall"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-row black">
+                    <div class="cell-container">
+                        <div class="cell-25 cell">
+                            <div class="post"></div>
+                        </div>
+                        <div class="cell-25 cell">
+                            <div class="post"></div>
+                        </div>
+                        <div class="cell-25 cell">
+                            <div class="post"></div>
+                        </div>
+                        <div class="cell-25 cell">
+                            <div class="post"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-row">
+                    <div class="cell-container max-800">
+                        <div class="cell-33 cell">
+                            <div class="post medium"></div>
+                        </div>
+                        <div class="cell-33 cell">
+                            <div class="post medium"></div>
+                        </div>
+                        <div class="cell-33 cell">
+                            <div class="post medium"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-row grey with-color">
+                    <div class="cell-container">
+                        <div class="cell-75 cell">
+                            <div class="post"></div>
+                        </div>
+                        <div class="cell-25 cell">
+                            <div class="post"></div>
+                        </div>
+                        <div class="cell-25 cell">
+                            <div class="post medium"></div>
+                        </div>
+                        <div class="cell-25 cell">
+                            <div class="post medium"></div>
+                        </div>
+                        <div class="cell-25 cell">
+                            <div class="post medium"></div>
+                        </div>
+                        <div class="cell-25 cell">
+                            <div class="post medium"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-row yellow max-800 with-color">
+                    <div class="cell-container">
+                        <div class="cell-25 cell">
+                            <div class="post"></div>
+                        </div>
+                        <div class="cell-25 cell">
+                            <div class="post"></div>
+                        </div>
+                        <div class="cell-25 cell">
+                            <div class="post"></div>
+                        </div>
+                        <div class="cell-25 cell">
+                            <div class="post"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-row">
+                    <div class="cell-container max-800">
+                        <div class="cell-25 cell">
+                            <div class="post"></div>
+                        </div>
+                        <div class="cell-25 cell">
+                            <div class="post"></div>
+                        </div>
+                        <div class="cell-50 cell">
+                            <div class="post"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-row max-800 red with-color">
+                    <div class="cell-container">
+                        <div class="cell-75 cell">
+                            <div class="post"></div>
+                        </div>
+                        <div class="cell-25 cell">
+                            <div class="post"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="drag-area">
-        <div class="planet red normal round draggable"><i class="centered fa fa-pinterest"></i></div>
-        <div class="planet red normal round draggable"></div>
-        <div class="planet red normal round draggable"></div>
-        <div class="planet red normal round draggable"></div>
-    </div>
+        <div class="footer"></div>
+
     <script src="js/miniss.js"></script>
     <script src="js/draggabilly.pkgd.min.js"></script>
     <script src="js/dragdrop.js"></script>
-    <script>
-        (function() {
-
-
-            solarSystemContainer = $('.solar-system');
-
-            var solarSystem = new System(solarSystemContainer);
-            solarSystem.start();
-
-            var body = document.body,
-                dragArea = $('#drag-area'),
-                droppableArr = [];
-
-            // initialize droppables
-            $('.drop-area').each( function(i, el) {
-                droppableArr.push( new Droppable( el, {
-                    onDrop:function( instance, draggableEl ) {
-                        // show checkmark inside the droppabe element
-                        $(instance.el).append(draggableEl);
-                        solarSystem.resume();
-                    }
-                }));
-            });
-
-            // initialize draggable(s)
-            $('.draggable').each( function(i, el) {
-                new Draggable( el, droppableArr, {
-                    onStart:function() {
-                        solarSystem.pause();
-                        // add class 'drag-active' to body
-                        classie.add( body, 'drag-active' );
-                    },
-                    onEnd:function( instance, wasDropped ) {
-                        classie.remove( body, 'drag-active' );
-                        if(!wasDropped) {
-                            solarSystem.resume();
-                            dragArea.append(el);
-                        }
-                        instance.moveBack( false );
-                    }
-                });
-            });
-        })();
-    </script>
+    <script src="js/app.js"></script>
 </body>
 </html>

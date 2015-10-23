@@ -1,5 +1,4 @@
 ;(function () {
-
     var $root;
 
     // util extend function
@@ -89,24 +88,19 @@
         this.options = extend( {}, this.options );
         extend( this.options, options );
 
-
-        console.log(this.options);
         this.parent = parent;
         this.xx = this.yy = this.y = this.x = 0;
         this.angle = this.options.angle || Math.random() * Math.PI * 2;
 
-        console.log(this.speed, this.options.speed)
-        this.speed = undefined === this.options.speed ? Math.random() * 4 - 2 : this.options.speed;
-        this.distanceMultiplierReduction = this.options.distanceMultiplierReduction || 4;
-        this.distanceMultiplier = this.options.distanceMultiplier;
-        this.radius = this.$el.outerHeight(true) / 2;
-        console.log(this.speed);
+        this.direction = this.options.direction || Math.random() > 0.5 ? 1 : -1;
+        this.speed = undefined === this.options.speed ? (Math.random() + 1) : this.options.speed;
+        this.speed *= this.direction;
+        this.distance = this.options.distance || 40;
+        this.radius = this.$el.width() / 2;
 
         var self = this;
         this.children = this.$el.children('.planet').map(function (i, planetEl) { 
-            return new Planet(planetEl, self, {
-                distanceMultiplier: self.distanceMultiplier / self.distanceMultiplierReduction * (i+1)
-            });
+            return new Planet(planetEl, self, $(planetEl).data());
         });
 
         this.trails = this.$el.children('.trail').map(function (i, trailEl) { 
@@ -126,8 +120,6 @@
     Planet.prototype.options = {
         // angle:1,
         // speed: 1,
-        distanceMultiplier: 400,
-        distanceMultiplierReduction: 10,
     }
 
     Planet.prototype.update = function (dt, now) {
@@ -148,13 +140,14 @@
     };
 
     Planet.prototype.updatePosition= function (now) {
-        var constant = this.distanceMultiplier + this.radius * 4;
+        var constant = this.distance;
         var newAngle = now * this.speed + this.angle;
+
 
         this.xx = this.x;
         this.yy = this.y;
-        this.y = Math.sin(newAngle) * constant + this.radius;
-        this.x = Math.cos(newAngle) * constant + this.radius;
+        this.y = Math.sin(newAngle) * constant - this.radius + this.parent.radius;
+        this.x = Math.cos(newAngle) * constant - this.radius + this.parent.radius;
     }
 
     Planet.prototype.showNextTrail = function () {

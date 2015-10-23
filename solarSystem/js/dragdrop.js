@@ -242,6 +242,7 @@
 		// apply original left/top
 		this.el.style.left = this.position.left + 'px';
 		this.el.style.top = this.position.top + 'px';
+
 		// remove class animate (transition) and is-active to the draggable element (z-index)
 		var callbackFn = function() {
 			if( anim ) { 
