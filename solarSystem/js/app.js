@@ -37,4 +37,19 @@
             }
         });
     });
+
+    $('.post').each(function(i, el) {
+        var url = "http://lorempixel.com/600/600/?" + Math.floor(Math.random() * 10000);
+        $(el).css('background-image', "url('" + url + "')");
+    });
+
+    $('.splash').each(function(i, el) {
+        var url = "http://lorempixel.com/1200/600/?" + Math.floor(Math.random() * 10000);
+        $(el).css('background-image', "url('" + url + "')");
+    });
+
+    $('.profile-picture').each(function(i, el) {
+        var url = "http://lorempixel.com/100/100/?" + Math.floor(Math.random() * 10000);
+        $(el).css('background-image', "url('" + url + "')");
+    });
 });

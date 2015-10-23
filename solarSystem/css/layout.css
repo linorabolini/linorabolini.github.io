@@ -11,7 +11,6 @@ body {
     width: 100%;
     position: fixed;
     background-color: #1d1d1d;
-    background-image: url('http://k46.kn3.net/taringa/0/F/D/9/C/6/Feedde_/FC3.png');
     background-size: cover;
     top: 0;
 }
@@ -44,7 +43,8 @@ body {
     margin: 10px;
     position: relative;
     border-radius: 4px;
-    background: #ccc;
+    background-color: #ccc;
+    background-size: cover;
 }
 
 .post.medium {
