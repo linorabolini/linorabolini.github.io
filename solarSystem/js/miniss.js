@@ -11,10 +11,16 @@
         return a;
     }
 
+    //returns the interpolated value from a and b at the given weight (from 0 to 1)
+    var lerp = function(a, b, w) { 
+      return (1 - w) * a + w * b;
+    }
+
     function System( $el, options ) {
         this.$el = $el;
         this.planets = [];
         this.isRunning = true;
+        this.globalSpeed = 1;
 
         // extend the options
         this.options = extend( {}, this.options );
@@ -44,7 +50,7 @@
         var dt;
         function step(now) {
             if(self.isRunning) {
-                dt = now - last;
+                dt = Math.min(now - last, 100) * self.globalSpeed;
                 elapsed += dt;
                 self.update(dt, elapsed * 0.001);
             }
@@ -66,11 +72,17 @@
         this.isRunning = false;
     }
 
+    // setSpeed
+    // ===========================================
+    System.prototype.setSpeed = function (value) {
+        this.globalSpeed = value;
+    }
+
     // update
     // ===========================================
     System.prototype.update = function (dt, now) {
         $.each(this.planets, function (i, planet) {
-            planet.update(dt, now, 0);
+            planet.update(dt, now);
         });
     }
 
@@ -146,8 +158,11 @@
 
         this.xx = this.x;
         this.yy = this.y;
-        this.y = Math.sin(newAngle) * constant - this.radius + this.parent.radius;
-        this.x = Math.cos(newAngle) * constant - this.radius + this.parent.radius;
+        this.x = Math.sin(newAngle) * constant - this.radius + this.parent.radius;
+        this.y = Math.cos(newAngle) * constant - this.radius + this.parent.radius;
+
+        this.x = lerp(this.xx, this.x, 0.1);
+        this.y = lerp(this.yy, this.y, 0.1);
     }
 
     Planet.prototype.showNextTrail = function () {

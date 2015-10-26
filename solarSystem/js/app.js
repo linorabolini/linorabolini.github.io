@@ -14,7 +14,7 @@
             onDrop:function( instance, draggableEl ) {
                 // show checkmark inside the droppabe element
                 $(instance.el).append(draggableEl);
-                solarSystem.resume();
+                solarSystem.setSpeed(1);
             }
         }));
     });
@@ -23,14 +23,14 @@
     $('.draggable').each( function(i, el) {
         new Draggable( el, droppableArr, {
             onStart:function() {
-                solarSystem.pause();
+                solarSystem.setSpeed(0.3);
                 // add class 'drag-active' to body
                 classie.add( body, 'drag-active' );
             },
             onEnd:function( instance, wasDropped ) {
                 classie.remove( body, 'drag-active' );
                 if(!wasDropped) {
-                    solarSystem.resume();
+                    solarSystem.setSpeed(1);
                     dragArea.append(el);
                 }
                 instance.moveBack( false );
